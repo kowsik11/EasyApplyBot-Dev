@@ -46,56 +46,55 @@ inputField:
   Writing/Editing: 0
   # default to put for any skill that you did not list
   Years of experience: 0
-  C++: 2
+  C++: 0
   Python: 3
   Javascript: 3
   Node: 3
   python: 3
   Spring Boot: 0
   Java: 3
-  PHP: 2
+  PHP: 0
   Laravel: 0
   SASS: 3
   React: 3
   React Native: 2
-  Django: 2
+  Django: 0
   SAP: 0
   ipt: 0
-  MySQL: 3
-  Shopify: 1
+  MySQL: 0
+  Shopify: 0
   Typescript: 3
   JavaScript: 3
-  Angular: 1
+  Angular: 0
   Redux.js: 2
   Angular Command Line Interface (CLI): 0
-  selenium: 2
-  C#: 1
-  C (Programming Language): 3
-  Software Development: 2
+  selenium: 3
+  C#: 0
+  C (Programming Language): 0
+  Software Development: 3
   Linux: 2
   Cross-functional team: 0
   Social media platforms: 0
   Microsoft Azure: 0
-  AWS: 1
+  AWS: 0
   .NET: 0
   # add custom one here
-  universityGpa: 8.79
+  universityGpa: 4.0
   # What is your level of proficiency in a: polski? Required
-  english: Profesional # None, Conversational, Professional, Native or 
-  Hindi: Conversational
-  # polski: Conversational # None, Conversational, Professional, Native or bilingual
-  # angielski: Native or bilingual # None, Conversational, Professional, Native or bilingual
+  english: Native or bilingual # None, Conversational, Professional, Native or bilingual
+  polski: Conversational # None, Conversational, Professional, Native or bilingual
+  angielski: Native or bilingual # None, Conversational, Professional, Native or bilingual
   # Other queations, you can add custom ones below and bot will also add the unrecognized ones at the end
   # Can you provide a ballpark salary range you'd be looking for? Required / # Desired salary Required / Salary expectations for
   # what would be the monthly compensation you are seeking? (in dollar)
-  Salary range: 1500 usd - 1800 usd net monthly.
-  Desired salary: 1200 usd - 1800 usd net monthly.
-  Salary expectations: 1500 usd - 1800 usd net monthly.
-  Monthly compensation: 1500 usd - 1800 usd net monthly.
+  Salary range: 15000 usd - 18000 usd net monthly.
+  Desired salary: 15000 usd - 18000 usd net monthly.
+  Salary expectations: 15000 usd - 18000 usd net monthly.
+  Monthly compensation: 15000 usd - 18000 usd net monthly.
   # If you selected Word of mouth, Referral or Other from the question above, please specify in the box below.
   Word of mouth, Referral or Other: None
   # College or University
-  College or University: Amrita Vishwa vidyaPeetham
+  College or University: ABC University
   # Have you ever applied at ... before? Required
   Have you ever applied: "No"
   #  Please provide 3 references with their name, phone number, and email address. Required
@@ -105,7 +104,7 @@ inputField:
   #  What is your desired hourly pay rate (in USD)? Required
   Hourly pay rate: 30
   #  Notice period in weeks Required
-  Notice period: 1 weeks
+  Notice period: 2 weeks
   #  Please evaluate on a scale from 1 to 10 you ability to manage technical issues on different social media platforms? Required
   Manage Technical Issues: 8
   # What are your salary requirements in gross monthly PLN?
@@ -116,11 +115,11 @@ inputField:
   # how many years of work experience do you have with internet of things (iot)?
   internet of things (iot): 1
   # how many years of work experience do you have with opencv?
-  opencv: 2
+  opencv: 0
   # how many years of work experience do you have with numpy?
   numpy: 3
   # how many years of work experience do you have with devops?
-  Devops: 2
+  Devops: 3
   # how many years of work experience do you have with user interface design?
   Interface Design: 3
   # ¿cuántos años de experiencia tienes con modelo-vista-controlador (mvc)?
@@ -128,7 +127,7 @@ inputField:
   # how many years of work experience do you have with Embedded Software?
   Embedded software: 3
   # how many years of work experience do you have with apache?
-  Apache: 1
+  Apache: 0
   # how many years of work experience do you have with puppeteering?
   puppeteering: 0
   # how many years of work experience do you have with scorm?
@@ -140,12 +139,12 @@ inputField:
   # how many years of work experience do you have using google analytics?
   google analytics: 3
   # how many years of work experience do you have using instagram analytics?
-  instagram analytics: 2
+  instagram analytics: 0
   # how many years of work experience do you have using facebook ads manager?
   facebook ads manager: 2
   # ui/ux experience / how many years of work experience do you have with [skill]? ui developer
-  ui: 1
-  ux: 1
+  ui: 5
+  ux: 5
   # how many years of work experience do you have with microservices?
   microservices: 2
   # how many years of work experience do you have with google material design?
@@ -153,23 +152,23 @@ inputField:
   # ¿cuántos años de experiencia tienes con prueba unitaria?
   experiencia tienes con prueba unitaria: 5
   # ¿cuántos años de experiencia tienes con interfaces?
-  interfaces: 1
+  interfaces: 5
   # how many years of work experience do you have with golang?
-  Golang: 0
+  Golang: 2
   # how many years of work experience do you have with kafka ?
-  kafka: 1
+  kafka: 0
   # how many years of work experience do you have with docker?
-  Docker: 2
+  Docker: 0
   # how many years of work experience do you have with ci/cd ?
-  ci/cd: 2
+  ci/cd: 4
   # quanti anni di esperienza di lavoro hai con supporto tecnico?
   supporto tecnico: 2
   # how many years of work experience do you have with android sdk?
-  android sdk: 1
+  android sdk: 0
   # how many years of work experience do you have with microsoft office?
-  microsoft office: 
+  microsoft office: 5
   # wie viele jahre erfahrung haben sie mit: national institute of standards and technology?
-  national institute of standards and technology: 2
+  national institute of standards and technology: 0
   # wie viele jahre erfahrung haben sie mit: cybersecurity?
   cybersecurity: 2
   # how many years of work experience do you have with saas development?
@@ -185,7 +184,7 @@ inputField:
   # ¿cuántos años de experiencia tienes con implantación de software?
   implantación de software: 3
   # how many years of work experience do you have with software defined networking?
-  software defined networking: 2
+  software defined networking: 0
   # quanti anni di esperienza di lavoro hai con creazione di siti web?
   creazione di siti web: 5
   # quanti anni di esperienza di lavoro hai con progettazione di siti wordpress?
@@ -195,7 +194,7 @@ inputField:
   # ¿cuál es tu pretensión salarial neta anual?
   salarial: 5000
   # what is your expected ctc?
-  ctc: 600000
+  ctc: 5000
   # how many years of work experience do you have with oracle forms?
   oracle forms: 0 
   # how many years of work experience do you have with weblogic?
@@ -209,7 +208,7 @@ inputField:
   # ¿cuáles son tus expectativas salariales?
   salariales: 5000
   # how many years of work experience do you have with kubernetes?
-  kubuernetes: 2
+  kubuernetes: 0
   # how many years of work experience do you have with symfony framework?
   Symfony: 0 
   # experience in mobile development using xamarin
@@ -217,11 +216,11 @@ inputField:
   # experience with search engines like solr
   Solr: 0
   # what is your salary expectation?
-  Salary: 800000
+  Salary: 5000
   # do you have experience working for a product company?
   experience working for a product company: Yes
   # how many years of work experience do you have with skill development?
-  Skill development: 2
+  Skill development: 0
   # quanti anni di esperienza di lavoro hai con l’uso di visual studio?
   visual studio: 5
   # how many years of work experience do you have with spring?
@@ -377,9 +376,7 @@ radio:
   # Are you willing to relocate?
   Relocate: "yes"
   # Are you a US Citizen?
-  US Citizen: "no"
-  # Are you a India Citizen?
-  India Citizen: "no"
+  US Citizen: "yes"
   # Are you willing to travel 25% of the time?
   Travel 25%: "yes"
   # Are you willing to take a drug test, in accordance with local law/regulations?
@@ -393,17 +390,17 @@ radio:
   # Data retention policy
   Data retention: "no"
   #  Are you legally authorized to work in Canada?
-  Legally authorized to work in Canada: "no"
+  Legally authorized to work in Canada: "yes"
   # Are you currently residing in any state outside of California? Yes = I live outside of California No = I live in California
-  outside of California: "no"
+  outside of California: "yes"
   # Gender (Male - 0 / Female - 1 / Decline to Answer - 2)
-  Gender ?: "Male"
+  Gender: "Decline to Answer"
   #  Veteran status  ( I identify as one or more listed above - 0 /  I am not a protected veteran - 1 /  I don't wish to answer - 2  ))
   Veteran: "I don't wish to answer "
   #  Disability status  ( Yes, I Have A Disability - 0 /  No, I Don't Have A Disability - 1 /  I don't wish to answer - 2  ))
-  Disability: "No "
+  Disability: "I don't wish to answer "
   # Race/Ethnicity  (Hispanic or Latino - 0 /  American Indian or Alaska Native (Not Hispanic or Latino) - 1 / Asian (Not Hispanic or Latino) - 2 /  Black or African American (Not Hispanic or Latino)  - 4 /  Native Hawaiian or Other Pacific Islander (Not Hispanic or Latino) - 5 /  Two or More Races (Not Hispanic or Latino) - 6 /  White (Not Hispanic or Latino - 7 /  I prefer not to specify - 8  )
-  Race: "1"
+  Race: "I prefer not to specify"
   # how many years of work experience do you have with devops?
   Devops: 3
   # how many years of work experience do you have with user interface design?
@@ -434,13 +431,13 @@ radio:
   # agree to receive occasional email updates from qualitest. your consent is voluntary. please view our privacy policy: https://www.qualitestgroup.com/about-us/privacy-policy/ and our terms and conditions: https://www.qualitestgroup.com/about-us/terms-conditions/ you have the right to unsubscribe and withdraw your consent at any time. Options : [yes,no]
   agree to receive occasional email updates: "no"
   # do you have the right to live and work in uk? Options : [yes,no]
-  uk: "no"
+  uk: "yes"
   # are based in greece? Options : [yes,no]
   Greece: "no"
   # do you have at least 3 years of working experience in a similar role? Options : [yes,no]
   3 years of working experience in a similar role: "yes"
   # do you have solid working experience with jenkins? Options : [yes,no]
-  jenkins: "yes"
+  jenkins: "no"
   # czy zgadzasz się na dojazd do pracy w tej lokalizacji  Options : [tak,nie]
   # ¿tienes permiso de trabajo para españa? Options : [sí,no]
   # avez-vous besoin, ou aurez-vous besoin plus tard, d’un parrainage d’immigration pour obtenir une autorisation de travail ? Options : [oui,non]
@@ -467,7 +464,7 @@ radio:
   # do you have experience with angular version 14+? Options : [yes,no]
   angular: "yes"
   # how many years of experience in web development do you have? Options : [0 - 5 years,5 - 8 years,8+ years]
-  web development: 0 - 3 years,
+  web development: 0 - 5 years,
   # are you currently located in or near kraków, poland? Options : [yes,no]
   kraków: "yes"
   # i am allowing guidewire software to contact me about future job opportunities for up to 2 years. privacy policy Options : [yes,no]
@@ -676,38 +673,5 @@ dropdown:
   # do you have experience of dlt / blockchain architecture?  Options : [Select an option,Yes,No]
   # do you have a post study visa/tier 4 visa, or tier 2 general visa? Options : [Select an option,Yes,No]
   # do you have enhanced dv clearance? Options : [Select an option,Yes,No]
-
-# Address
-Home address: "11-112, Gandhi Bomma Center, Gurazala"
-City: "Gurazala"
-# (state & zip can be separate questions on some forms)
-State / Province: "Andhra Pradesh"
-Postal code / Zip: "522415"
-
-# Relocation / onsite
-Are you willing to relocate to Bangalore, chennai, hyderabad, chennai?: "Yes"
-Are you willing to work from office 5 days in a week?: "Yes"
-Are you willing to work on 6 months internship model?: "Yes"
-Are you able to come to office in-person in Bangalore, chennai, hyderabad, mumbai, every day?: "Yes"
-In how many days could you start full-time in person?: "0"
-
-
-Have you completed the following level of education: Bachelor's Degree?: "Yes"
-
-Any information you choose to provide will not be considered for employment purposes and will be treated as confidential.: "Yes"
-I Agree Terms & Conditions: "Yes"
-
-# Languages
-What is your level of proficiency in Hindi?: "Conversational"
-What is your level of proficiency in English?: "Professional"
-
-# Links
-LinkedIn profile URL: "https://www.linkedin.com/in/kowsikperumalla"
-
-# Skills-by-years (bot fills matching substrings)
-Python: "2"
-Java: "2"
-React JS: "2"
-Years of experience in Python: "2"
-Years of experience in Java: "2"
-Years of experience in React: "2"
+  defaultRadioOption = 1         # 1 = first radio (“Yes”), 2 = second (“No”)
+  answerAllCheckboxes = "yes"    # or "no" if you’d rather decline

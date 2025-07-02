@@ -15,35 +15,45 @@ firefoxProfileRootDir = r""
 # get Chrome profile path by typing following url: chrome://version/
 chromeProfilePath = r""
 
-
-
 # These settings are for running Linkedin job apply bot.
 # location you want to search the jobs - ex : ["Poland", "Singapore", "New York City Metropolitan Area", "Monroe County"]
 # continent locations:["Europe", "Asia", "Australia", "NorthAmerica", "SouthAmerica", "Africa", "Australia"]
-location = ["NorthAmerica"]
-# keywords related with your job search
-keywords = ["frontend", "react", "typescript","javascript", "vue", "python", "programming", "blockchain"]
-#job experience Level - ex:  ["Internship", "Entry level" , "Associate" , "Mid-Senior level" , "Director" , "Executive"]
-experienceLevels = [ "Entry level" ]
-#job posted date - ex: ["Any Time", "Past Month" , "Past Week" , "Past 24 hours"] - select only one
+# 🔍 TARGET JOB ROLES / KEYWORDS
+keywords = ["data analyst", "data scientist", "software developer", "python", "aws", "cloud", "devops", "cybersecurity"]
+
+# 📍 TARGET LOCATION – Indian Tech Hubs
+location = ["Bangalore", "Mumbai", "Chennai", "Hyderabad"]
+
+# 🧠 EXPERIENCE LEVEL – Entry Only
+experienceLevels = ["Entry level"]
+
+# 📅 DATE POSTED – Still Relevant
 datePosted = ["Past Week"]
-#job type - ex:  ["Full-time", "Part-time" , "Contract" , "Temporary", "Volunteer", "Intership", "Other"]
-jobType = ["Full-time", "Part-time" , "Contract"]
-#remote  - ex: ["On-site" , "Remote" , "Hybrid"]
-remote = ["On-site" , "Remote" , "Hybrid"]
-#salary - ex:["$40,000+", "$60,000+", "$80,000+", "$100,000+", "$120,000+", "$140,000+", "$160,000+", "$180,000+", "$200,000+" ] - select only one
-salary = [ "$80,00+"]
-#sort - ex:["Recent"] or ["Relevent"] - select only one
+
+# 💼 JOB TYPE – Full-time, Part-time, Contract
+jobType = ["Full-time", "Part-time", "Contract"]
+
+# 🏠 WORK SETUP – All Accepted (Remote, On-site, Hybrid)
+remote = ["On-site", "Remote", "Hybrid"]
+
+# 💰 SALARY FILTER – ₹7 LPA & Above
+# 🔄 Converted $80K → ₹66.5 Lakhs ≈ Unrealistic for entry-level India
+# ✅ Use this for ~₹7 LPA jobs (~$8.5K USD/year)
+salary = ["$8,000+"]  # equivalent to ~7 LPA INR
+
+# 📈 SORT BY RECENT JOBS
 sort = ["Recent"]
-#Blacklist companies you dont want to apply - ex: ["Apple","Google"]
+
+# ❌ BLACKLISTS – None applied
 blacklistCompanies = []
-#Blaclist keywords in title - ex:["manager", ".Net"]
 blackListTitles = []
-#Follow companies after sucessfull application True - yes, False - no
+
+# ✅ FOLLOW COMPANIES – Optional
 followCompanies = False
-#Below settings are for linkedin bot Pro, you can purchase monthly or yearly subscription to use them from me.
-#PRO FEATURE! - If you have multiple CV's you can choose which one you want the bot to use. (1- the first one on the list, 2 - second , etc)
+
+# 📎 CV PICKER
 preferredCv = 1
+
 #PRO FEAUTRE! - Output unaswered questions into a seperate text file, will output radio box, dropdown and input field questions into seperate .yaml file
 outputSkippedQuestions = True
 #PRO FEATURE! - Use AI to fill and answer skipped questions. Will cost 5 credits per answer cause of computational power.
@@ -89,7 +99,7 @@ AngelCoBotPassword = ""
 AngelCoEmail = ""
 AngelCoPassword = ""
 # jobTitle ex: ["Frontend Engineer", "Marketing"]
-angelCoJobTitle = ["Frontend Engineer"]
+angelCoJobTitle = ["Backend Engineer"]
 # location ex: ["Poland"]
 angelCoLocation = ["Poland"]
 
@@ -114,19 +124,14 @@ GlobalLogicRemoteWork = ["yes"]
 # Optional! Keyword:["javascript", "react", "angular", ""]
 GlobalLogicKeyword = ["react"]
 # Global Logic Job apply settinngs
-FirstName = "Chinni Krishna Kowsik"
-LastName = "Permalla"
-Email = "kowsikperumalla@gmail.com"
-LinkedInProfileURL = "https://www.linkedin.com/in/kowsikperumalla/"
-Phone = "9000021892" #OPTIONAL
-Location = "Guntur, Andhra Pradesh" #OPTIONAL
+FirstName = "O"
+LastName = "P"
+Email = "asdsa@gmail.com"
+LinkedInProfileURL = "www.google.com"
+Phone = "" #OPTIONAL
+Location = "" #OPTIONAL
 HowDidYouHeard = "" #OPTIONAL
 ConsiderMeForFutureOffers = True #true = yes, false = no
 
  # Testing & Debugging features
 displayWarnings = False
-defaultRadioOption = 1         # 1 = first radio (“Yes”), 2 = second (“No”)
-answerAllCheckboxes = "yes"    # or "no" if you’d rather decline
-
-useAiAutocomplete = True
-headless = True   # optional

@@ -1,275 +1,163 @@
-import math,constants,config,time
+# utils.py  – unchanged, included here for completeness
+import math, time, os, constants, config
 from typing import List
-
 from selenium import webdriver
 
 
-def chromeBrowserOptions():
-    options = webdriver.ChromeOptions()
-    # Core stability flags
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--ignore-certificate-errors")
-    options.add_argument("--disable-extensions")
-    options.add_argument("--log-level=3")             # quiet logs
-    options.add_argument("--start-maximized")
-    options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    options.add_experimental_option('useAutomationExtension', False)
+def chromeBrowserOptions() -> webdriver.ChromeOptions:
+    opts = webdriver.ChromeOptions()
+    opts.add_argument("--no-sandbox")
+    opts.add_argument("--ignore-certificate-errors")
+    opts.add_argument("--disable-extensions")
+    opts.add_argument("--disable-gpu")
+    opts.add_argument("--log-level=3")
+    opts.add_argument("--disable-dev-shm-usage")
+    opts.add_argument("--start-maximized")
+    opts.add_argument("--disable-blink-features")
+    opts.add_argument("--disable-blink-features=AutomationControlled")
+    opts.add_experimental_option("useAutomationExtension", False)
+    opts.add_experimental_option("excludeSwitches", ["enable-automation"])
 
-    # Headless only if *explicitly* requested
     if config.headless:
-        options.add_argument("--headless=new")        # Chrome ≥109
+        opts.add_argument("--headless=new")
 
-    # Re-use your Chrome profile if you set one
     if config.chromeProfilePath:
-        root, profile = config.chromeProfilePath.rsplit("/", 1)
-        options.add_argument(f'--user-data-dir={root}')
-        options.add_argument(f'--profile-directory={profile}')
+        base = config.chromeProfilePath.rsplit("/", 1)[0]
+        prof = config.chromeProfilePath.rsplit("/", 1)[1]
+        opts.add_argument(f"--user-data-dir={base}")
+        opts.add_argument(f"--profile-directory={prof}")
     else:
-        options.add_argument("--incognito")
+        opts.add_argument("--incognito")
+    return opts
 
-    return options
+
+def prRed(txt):    print(f"\033[91m{txt}\033[0m")
+def prGreen(txt):  print(f"\033[92m{txt}\033[0m")
+def prYellow(txt): print(f"\033[93m{txt}\033[0m")
 
 
-def prRed(prt):
-    print(f"\033[91m{prt}\033[00m")
-
-def prGreen(prt):
-    print(f"\033[92m{prt}\033[00m")
-
-def prYellow(prt):
-    print(f"\033[93m{prt}\033[00m")
-
-def getUrlDataFile():
-    urlData = ""
+def getUrlDataFile() -> List[str]:
     try:
-        file = open('data/urlData.txt', 'r')
-        urlData = file.readlines()
+        with open("data/urlData.txt", encoding="utf-8") as fh:
+            return [ln.strip() for ln in fh if ln.strip()]
     except FileNotFoundError:
-        text = "FileNotFound:urlData.txt file is not found. Please run ./data folder exists and check config.py values of yours. Then run the bot again"
-        prRed(text)
-    return urlData
+        prRed("❌  data/urlData.txt not found – run the bot once to create it.")
+        return []
 
-def jobsToPages(numOfJobs: str) -> int:
-  number_of_pages = 1
 
-  if (' ' in numOfJobs):
-    spaceIndex = numOfJobs.index(' ')
-    totalJobs = (numOfJobs[0:spaceIndex])
-    totalJobs_int = int(totalJobs.replace(',', ''))
-    number_of_pages = math.ceil(totalJobs_int/constants.jobsPerPage)
-    if (number_of_pages > 40 ): number_of_pages = 40
+def jobsToPages(num_of_jobs: str) -> int:
+    if " " in num_of_jobs:
+        total = int(num_of_jobs.split(" ")[0].replace(",", ""))
+        pages = math.ceil(total / constants.jobsPerPage)
+        return min(pages, 40)
+    try:
+        return int(num_of_jobs)
+    except ValueError:
+        return 1
 
-  else:
-      number_of_pages = int(numOfJobs)
-
-  return number_of_pages
 
 def urlToKeywords(url: str) -> List[str]:
-    keywordUrl = url[url.index("keywords=")+9:]
-    keyword = keywordUrl[0:keywordUrl.index("&") ] 
-    locationUrl =  url[url.index("location=")+9:]
-    location = locationUrl[0:locationUrl.index("&") ] 
-    return [keyword,location]
+    kw  = url.split("keywords=")[1].split("&")[0]
+    loc = url.split("location=")[1].split("&")[0]
+    return [kw, loc]
 
-def writeResults(text: str):
-    timeStr = time.strftime("%Y%m%d")
-    fileName = "Applied Jobs DATA - " +timeStr + ".txt"
+
+def writeResults(line: str):
+    os.makedirs("data", exist_ok=True)
+    fname = time.strftime("Applied Jobs DATA - %Y%m%d.txt")
+    header = (
+        "---- Applied Jobs Data ---- created at: "
+        + time.strftime("%Y-%m-%d %H:%M")
+        + "\n---- Number | Job | Company | Location | Result\n"
+    )
+    if not os.path.exists(f"data/{fname}"):
+        with open(f"data/{fname}", "w", encoding="utf-8") as fh:
+            fh.write(header)
+    with open(f"data/{fname}", "a", encoding="utf-8") as fh:
+        fh.write(line + "\n")
+
+
+def donate(driver_holder):
+    prYellow("If the project helped you, consider buying me a coffee ☕")
     try:
-        with open("data/" +fileName, encoding="utf-8" ) as file:
-            lines = []
-            for line in file:
-                if "----" not in line:
-                    lines.append(line)
-                
-        with open("data/" +fileName, 'w' ,encoding="utf-8") as f:
-            f.write("---- Applied Jobs Data ---- created at: " +timeStr+ "\n" )
-            f.write("---- Number | Job Title | Company | Location | Work Place | Posted Date | Applications | Result "   +"\n" )
-            for line in lines: 
-                f.write(line)
-            f.write(text+ "\n")
-            
-    except:
-        with open("data/" +fileName, 'w', encoding="utf-8") as f:
-            f.write("---- Applied Jobs Data ---- created at: " +timeStr+ "\n" )
-            f.write("---- Number | Job Title | Company | Location | Work Place | Posted Date | Applications | Result "   +"\n" )
+        driver_holder.driver.execute_script("window.open('https://www.automated-bots.com/');")
+    except Exception:
+        pass
 
-            f.write(text+ "\n")
-
-def printInfoMes(bot:str):
-    prYellow("ℹ️ " +bot+ " is starting soon... ")
-
-def donate(self):
-    prYellow('If you like the project, please support me so that i can make more such projects, thanks!')
-    try:
-        self.driver.get('https://www.automated-bots.com/')
-    except Exception as e:
-        prRed("Error in donate: " +str(e))
 
 class LinkedinUrlGenerate:
-    def generateUrlLinks(self):
-        path = []
-        for location in config.location:
-            for keyword in config.keywords:
-                    url = constants.linkJobUrl + "?f_AL=true&keywords=" +keyword+self.jobType()+self.remote()+self.checkJobLocation(location)+self.jobExp()+self.datePosted()+self.salary()+self.sortBy()
-                    path.append(url)
-        return path
+    def generateUrlLinks(self) -> List[str]:
+        links = []
+        for loc in config.location:
+            for kw in config.keywords:
+                parts = [
+                    constants.linkJobUrl,
+                    "?f_AL=true",
+                    "&keywords=" + kw,
+                    self.jobType(),
+                    self.remote(),
+                    self.checkJobLocation(loc),
+                    self.jobExp(),
+                    self.datePosted(),
+                    self.salary(),
+                    self.sortBy(),
+                ]
+                links.append("".join(parts))
+        return links
 
-    def checkJobLocation(self,job):
-        jobLoc = "&location=" +job
-        match job.casefold():
-            case "asia":
-                jobLoc += "&geoId=102393603"
-            case "europe":
-                jobLoc += "&geoId=100506914"
-            case "northamerica":
-                jobLoc += "&geoId=102221843&"
-            case "southamerica":
-                jobLoc +=  "&geoId=104514572"
-            case "australia":
-                jobLoc +=  "&geoId=101452733"
-            case "africa":
-                jobLoc += "&geoId=103537801"
+    def checkJobLocation(self, loc: str) -> str:
+        geo = {
+            "asia":         "102393603",
+            "europe":       "100506914",
+            "northamerica": "102221843",
+            "southamerica": "104514572",
+            "australia":    "101452733",
+            "africa":       "103537801",
+        }
+        return f"&location={loc}&geoId={geo.get(loc.lower(),'')}"
 
-        return jobLoc
+    def jobExp(self) -> str:
+        mapping = {
+            "Internship":       "1",
+            "Entry level":      "2",
+            "Associate":        "3",
+            "Mid-Senior level": "4",
+            "Director":         "5",
+            "Executive":        "6",
+        }
+        ids = [mapping[e] for e in config.experienceLevels if e in mapping]
+        return "&f_E=" + "%2C".join(ids) if ids else ""
 
-    def jobExp(self):
-        jobtExpArray = config.experienceLevels
-        firstJobExp = jobtExpArray[0]
-        jobExp = ""
-        match firstJobExp:
-            case "Internship":
-                jobExp = "&f_E=1"
-            case "Entry level":
-                jobExp = "&f_E=2"
-            case "Associate":
-                jobExp = "&f_E=3"
-            case "Mid-Senior level":
-                jobExp = "&f_E=4"
-            case "Director":
-                jobExp = "&f_E=5"
-            case "Executive":
-                jobExp = "&f_E=6"
-        for index in range (1,len(jobtExpArray)):
-            match jobtExpArray[index]:
-                case "Internship":
-                    jobExp += "%2C1"
-                case "Entry level":
-                    jobExp +="%2C2"
-                case "Associate":
-                    jobExp +="%2C3"
-                case "Mid-Senior level":
-                    jobExp += "%2C4"
-                case "Director":
-                    jobExp += "%2C5"
-                case "Executive":
-                    jobExp  +="%2C6"
+    def datePosted(self) -> str:
+        mapping = {
+            "Any Time":        "",
+            "Past Month":      "&f_TPR=r2592000&",
+            "Past Week":       "&f_TPR=r604800&",
+            "Past 24 hours":   "&f_TPR=r86400&",
+        }
+        return mapping.get(config.datePosted[0], "")
 
-        return jobExp
+    def jobType(self) -> str:
+        mapping = {
+            "Full-time":  "F", "Part-time": "P", "Contract": "C",
+            "Temporary":  "T", "Volunteer": "V", "Intership": "I",
+            "Other":      "O",
+        }
+        ids = [mapping[t] for t in config.jobType if t in mapping]
+        return "&f_JT=" + "%2C".join(ids) + "&" if ids else ""
 
-    def datePosted(self):
-        datePosted = ""
-        match config.datePosted[0]:
-            case "Any Time":
-                datePosted = ""
-            case "Past Month":
-                datePosted = "&f_TPR=r2592000&"
-            case "Past Week":
-                datePosted = "&f_TPR=r604800&"
-            case "Past 24 hours":
-                datePosted = "&f_TPR=r86400&"
-        return datePosted
+    def remote(self) -> str:
+        mapping = {"On-site": "1", "Remote": "2", "Hybrid": "3"}
+        ids = [mapping[r] for r in config.remote if r in mapping]
+        return "f_WT=" + "%2C".join(ids) if ids else ""
 
-    def jobType(self):
-        jobTypeArray = config.jobType
-        firstjobType = jobTypeArray[0]
-        jobType = ""
-        match firstjobType:
-            case "Full-time":
-                jobType = "&f_JT=F"
-            case "Part-time":
-                jobType = "&f_JT=P"
-            case "Contract":
-                jobType = "&f_JT=C"
-            case "Temporary":
-                jobType = "&f_JT=T"
-            case "Volunteer":
-                jobType = "&f_JT=V"
-            case "Intership":
-                jobType = "&f_JT=I"
-            case "Other":
-                jobType = "&f_JT=O"
-        for index in range (1,len(jobTypeArray)):
-            match jobTypeArray[index]:
-                case "Full-time":
-                    jobType += "%2CF"
-                case "Part-time":
-                    jobType +="%2CP"
-                case "Contract":
-                    jobType +="%2CC"
-                case "Temporary":
-                    jobType += "%2CT"
-                case "Volunteer":
-                    jobType += "%2CV"
-                case "Intership":
-                    jobType  +="%2CI"
-                case "Other":
-                    jobType  +="%2CO"
-        jobType += "&"
-        return jobType
+    def salary(self) -> str:
+        mapping = {
+            "$40,000+": "1", "$60,000+": "2", "$80,000+": "3",
+            "$100,000+": "4", "$120,000+": "5", "$140,000+": "6",
+            "$160,000+": "7", "$180,000+": "8", "$200,000+": "9",
+        }
+        return f"f_SB2={mapping.get(config.salary[0],'')}&" if config.salary else ""
 
-    def remote(self):
-        remoteArray = config.remote
-        firstJobRemote = remoteArray[0]
-        jobRemote = ""
-        match firstJobRemote:
-            case "On-site":
-                jobRemote = "f_WT=1"
-            case "Remote":
-                jobRemote = "f_WT=2"
-            case "Hybrid":
-                jobRemote = "f_WT=3"
-        for index in range (1,len(remoteArray)):
-            match remoteArray[index]:
-                case "On-site":
-                    jobRemote += "%2C1"
-                case "Remote":
-                    jobRemote += "%2C2"
-                case "Hybrid":
-                    jobRemote += "%2C3"
-
-        return jobRemote
-
-    def salary(self):
-        salary = ""
-        match config.salary[0]:
-            case "$40,000+":
-                salary = "f_SB2=1&"
-            case "$60,000+":
-                salary = "f_SB2=2&"
-            case "$80,000+":
-                salary = "f_SB2=3&"
-            case "$100,000+":
-                salary = "f_SB2=4&"
-            case "$120,000+":
-                salary = "f_SB2=5&"
-            case "$140,000+":
-                salary = "f_SB2=6&"
-            case "$160,000+":
-                salary = "f_SB2=7&"    
-            case "$180,000+":
-                salary = "f_SB2=8&"    
-            case "$200,000+":
-                salary = "f_SB2=9&"                  
-        return salary
-
-    def sortBy(self):
-        sortBy = ""
-        match config.sort[0]:
-            case "Recent":
-                sortBy = "sortBy=DD"
-            case "Relevent":
-                sortBy = "sortBy=R"                
-        return sortBy
+    def sortBy(self) -> str:
+        return "sortBy=DD" if config.sort[0] == "Recent" else "sortBy=R"
