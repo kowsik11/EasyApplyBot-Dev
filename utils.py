@@ -161,3 +161,32 @@ class LinkedinUrlGenerate:
 
     def sortBy(self) -> str:
         return "sortBy=DD" if config.sort[0] == "Recent" else "sortBy=R"
+
+def _default_for(label: str, field_type: str = ""):
+    label = label.lower()
+    
+    # 1️⃣ CTC / Salary logic
+    if "expected" in label and ("ctc" in label or "salary" in label):
+        return "700000"  # or "7 LPA"
+    if "current" in label and ("ctc" in label or "salary" in label):
+        return "600000"  # or "6 LPA"
+
+    # 2️⃣ Relocation / Residing logic
+    if "relocate" in label or "bengaluru" or "hyderabad" or "chennai" in label or "willing to relocate" in label:
+        return "Yes"
+
+    # 3️⃣ Experience logic
+    if "years of experience" in label:
+        return "2"
+
+    # 4️⃣ Notice Period logic
+    if "notice" in label:
+        return "Immediate"  # or "Within 7 days"
+
+    # 5️⃣ Fallbacks
+    if field_type == "number":
+        return "0"
+    if field_type == "text" or field_type == "textarea":
+        return "N/A"
+    
+    return None

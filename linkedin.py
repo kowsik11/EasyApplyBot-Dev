@@ -3,7 +3,6 @@ import time
 import random
 import pickle
 import hashlib
-from typing import List
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -32,7 +31,7 @@ class EasyApplyWizard:
     def _click(self, label: str) -> bool:
         try:
             btn = self.wait.until(EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, f'button[aria-label=\"{label}\"]')
+                (By.CSS_SELECTOR, f'button[aria-label="{label}"]')
             ))
             self._scroll_modal()
             try: btn.click()
@@ -66,7 +65,6 @@ class EasyApplyWizard:
     def _fill_modal(self):
         modal = self.driver.find_element(By.CSS_SELECTOR, "div.artdeco-modal__content")
 
-        # ── Text & number inputs (with numeric-text detection) ───────────────────────
         for inp in modal.find_elements(By.TAG_NAME, "input"):
             typ = (inp.get_attribute("type") or "text").lower()
             if typ in ("checkbox","radio","hidden","submit","button","image","file"):
@@ -75,18 +73,15 @@ class EasyApplyWizard:
                 continue
             if inp.get_attribute("value"):
                 continue
-
             label     = inp.get_attribute("aria-label") or inp.get_attribute("placeholder") or ""
             pattern   = inp.get_attribute("pattern") or ""
             inputmode = inp.get_attribute("inputmode") or ""
 
-            # numeric‐only text fields → "0"
             if typ=="text" and (inputmode=="numeric" or "d" in pattern or "year" in label.lower()):
                 inp.send_keys("0")
             else:
                 inp.send_keys(self._default_for(label, typ))
 
-        # ── Textareas ───────────────────────────────────────────────────────────────
         for ta in modal.find_elements(By.TAG_NAME, "textarea"):
             if not (ta.get_attribute("aria-required")=="true" or ta.get_attribute("required")):
                 continue
@@ -95,7 +90,6 @@ class EasyApplyWizard:
             label = ta.get_attribute("aria-label") or ta.get_attribute("placeholder") or ""
             ta.send_keys(self._default_for(label, "textarea"))
 
-        # ── Radios (random pick) ─────────────────────────────────────────────────────
         all_radios = modal.find_elements(By.CSS_SELECTOR, "input[type='radio']")
         groups = {}
         for r in all_radios:
@@ -109,57 +103,41 @@ class EasyApplyWizard:
             if opts:
                 self._js_click(random.choice(opts))
 
-        # ── Checkboxes ───────────────────────────────────────────────────────────────
         for cb in modal.find_elements(By.CSS_SELECTOR, "input[type='checkbox']"):
             if not cb.is_selected():
                 self._js_click(cb)
 
-        # ── Native <select> dropdowns ────────────────────────────────────────────────
+        # ✅ Fixed scope to global instead of modal-limited
         for sel in modal.find_elements(By.TAG_NAME, "select"):
-            select = Select(sel)
-            if select.first_selected_option.get_attribute("value"):
-                continue
-            options = [o.text.strip() for o in select.options if o.text.strip()]
-            if "Yes" in options and "No" in options:
-                select.select_by_visible_text("Yes")
-                continue
-            label = sel.get_attribute("aria-label") or sel.get_attribute("name") or ""
-            done = False
-            for key, pref in _DROPDOWN_DEFAULTS.items():
-                if key in label.lower() and pref in options:
-                    select.select_by_visible_text(pref)
-                    done = True
-                    break
-            if done:
-                continue
-            select.select_by_index(1)
-
-        # ── Styled dropdowns / ARIA listboxes / React menus ─────────────────────────
-        triggers = modal.find_elements(
-            By.XPATH,
-            ".//button[@aria-haspopup='listbox']"
-            "|.//div[contains(@class,'dropdown__trigger')]"
-            "|.//div[@role='combobox']"
-            "|.//span[contains(@class,'select') and @aria-expanded]"
-        )
-        for opener in triggers:
             try:
-                self._scroll_modal()
-                opener.click()
-                time.sleep(0.3)
-                opts = modal.find_elements(By.CSS_SELECTOR, "[role='option']")
-                for o in opts:
-                    txt = o.text.strip()
-                    if not txt or "Select" in txt:
-                        continue
-                    try:
-                        o.click()
-                    except:
-                        self._js_click(o)
-                    opener.send_keys(Keys.TAB)
-                    break
-            except:
-                continue
+                selected_value = sel.get_attribute("value") or ""
+                if selected_value.strip():
+                    continue  # already selected
+
+                # Collect visible options
+                options = [o for o in sel.find_elements(By.TAG_NAME, "option") if o.text.strip()]
+                option_texts = [o.text.strip() for o in options]
+
+                picked = False
+                if "Yes" in option_texts:
+                    self.driver.execute_script("""
+                        arguments[0].value = arguments[1];
+                        arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
+                    """, sel, "Yes")
+                    picked = True
+                elif len(option_texts) > 1:
+                    self.driver.execute_script("""
+                        arguments[0].value = arguments[1];
+                        arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
+                    """, sel, options[1].get_attribute("value"))
+                    picked = True
+
+                if not picked:
+                    print("[⚠️ Dropdown] Could not pick value for select element.")
+
+            except Exception as e:
+                print("[⚠️ Select error]", e)
+
 
     def run(self) -> str:
         for _ in range(10):
@@ -193,7 +171,6 @@ class Linkedin:
         opts.add_argument("--disable-gpu")
         opts.add_argument("--disable-software-rasterizer")
         opts.add_argument("--enable-unsafe-swiftshader")
-        # opts.add_argument("--headless=new")
 
         self.driver = webdriver.Chrome(
             service=ChromeService(ChromeDriverManager().install()),
@@ -211,7 +188,6 @@ class Linkedin:
 
     @staticmethod
     def _md5(s: str) -> str:
-        import hashlib
         return hashlib.md5(s.encode()).hexdigest()
 
     def _load_cookies(self):
@@ -235,7 +211,7 @@ class Linkedin:
         self.driver.find_element(By.ID, "username").send_keys(config.email)
         self.driver.find_element(By.ID, "password").send_keys(config.password)
         self.driver.find_element(By.XPATH, "//button[@type='submit']").click()
-        time.sleep(30)  # allow captcha/2FA
+        time.sleep(30)
 
     def _generate_urls(self):
         os.makedirs("data", exist_ok=True)
@@ -272,7 +248,8 @@ class Linkedin:
                     time.sleep(1)
                     self._choose_resume()
                     wizard = EasyApplyWizard(self.driver)
-                    if wizard.run() == "submitted":
+                    result = wizard.run()
+                    if result == "submitted":
                         total_applied += 1
                         utils.writeResults(f"{header} | 🥳 Applied | {url}")
                     else:

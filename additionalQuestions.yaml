@@ -1,15 +1,21 @@
 #PRO FEATURE - Auto answer additional questions from the below values.
 inputField:
-  First Name: FirstName
-  Last Name: LastName
-  Phone Country Code: Canada (+1) # See linkedin for your country code, must be exact
-  Phone Number: 1234567890
-  Street address: 123 Fake Street
-  City: Katowice, Śląskie, Poland
-  State: Poland
-  Zip: 41-214
-  Linkedin: https://www.linkedin.com/in/
-  Website: https://www.ongundemirag.com/ # github/website is interchangable here
+  What is your current CTC in Lakhs per annum?: "600000"
+  What is your expected CTC in Lakhs per annum?: "700000"
+  Are you currently residing in Bengaluru, Karnataka or willing to relocate to Bengaluru, Karnataka?: "Yes"
+  What is your notice period?: "Immediate"
+  How many years of experience do you have in Python?: "2"
+
+  First Name: Chinni Krishna Kowsik 
+  Last Name: Perumalla
+  Phone Country Code: India (+91) # See linkedin for your country code, must be exact
+  Phone Number: 9000021892
+  Street address: 11-112, Gandhi Bomma Center, Gurazala
+  City: Guntur
+  State: Andhra Pradesh
+  Zip: 522415
+  Linkedin: https://www.linkedin.com/in/kowsik-perumalla-306595223/
+  Website: https://github.com/kowsik11/ # github/website is interchangable here
   # Questions having these technology keywords inside (whole numbers only) - case insensitive
   Accounting/Auditing: 0
   Administrative: 0
@@ -394,7 +400,7 @@ radio:
   # Are you currently residing in any state outside of California? Yes = I live outside of California No = I live in California
   outside of California: "yes"
   # Gender (Male - 0 / Female - 1 / Decline to Answer - 2)
-  Gender: "Decline to Answer"
+  Gender: "Male"
   #  Veteran status  ( I identify as one or more listed above - 0 /  I am not a protected veteran - 1 /  I don't wish to answer - 2  ))
   Veteran: "I don't wish to answer "
   #  Disability status  ( Yes, I Have A Disability - 0 /  No, I Don't Have A Disability - 1 /  I don't wish to answer - 2  ))
@@ -437,7 +443,7 @@ radio:
   # do you have at least 3 years of working experience in a similar role? Options : [yes,no]
   3 years of working experience in a similar role: "yes"
   # do you have solid working experience with jenkins? Options : [yes,no]
-  jenkins: "no"
+  jenkins: "yes"
   # czy zgadzasz się na dojazd do pracy w tej lokalizacji  Options : [tak,nie]
   # ¿tienes permiso de trabajo para españa? Options : [sí,no]
   # avez-vous besoin, ou aurez-vous besoin plus tard, d’un parrainage d’immigration pour obtenir une autorisation de travail ? Options : [oui,non]
@@ -469,7 +475,23 @@ radio:
   kraków: "yes"
   # i am allowing guidewire software to contact me about future job opportunities for up to 2 years. privacy policy Options : [yes,no]
   contact me about future job opportunities: "yes"
+  notice period: "2 weeks"
+  Jd is suiatable for: "yes"
+  Immediately: "yes"
+  immediate: "yes"
+  experience: "yes"
+  working experience: "yes"
+  comfortable: "yes"
+  # are you comfortable working in a remote setting? Options : [yes,no]
+  job location: "yes"
+  willing: "yes"
+  needed: "yes"
+  sponsorship: "yes"
+
+
+
 dropdown:
+
   # Are you located in the World? Options: ['Select an option', 'Yes', 'No']
   Are you located in the World?: "Yes" 
   # what is your level of proficiency in czech? Options : [Select an option,None,Conversational,Professional,Native or bilingual]
@@ -482,6 +504,12 @@ dropdown:
   Greek: "None"
   # disposez-vous d'une expérience d'au moins 2 ans à ce poste ? Options : [Sélectionnez une option,Yes,No]
   expérience d'au moins 2 ans à ce poste: "Yes"
+  What is your notice period: "Immediately"
+  currently: "Yes"
+  notice period: "Immediately"
+  What is your expected salary: "700000"
+
+  What is your current salary: "600000" 
   # can you join the organization within 30days? Options : [Select an option,Yes,No]
   30days: "Yes"
   # are you ready to work on-site / uk? Options : [Select an option,Yes,No]
